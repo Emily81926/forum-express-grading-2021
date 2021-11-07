@@ -23,7 +23,7 @@ module.exports = (app, passport) => {
   app.get('/restaurants', authenticated,restController.getRestaurants)
 
   app.get('/admin', authenticatedAdmin,(req, res) => res.redirect('/admin/restaurants'))
-  app.get('/admin/restaurants', authenticatedAdmin,adminController.getRestaurants)
+  app.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)
   app.get('/admin/restaurants/create', authenticatedAdmin, adminController.createRestaurant)
   app.post('/admin/restaurants', authenticatedAdmin, upload.single('image'), adminController.postRestaurant)
   app.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
