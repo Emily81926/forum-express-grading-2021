@@ -13,6 +13,10 @@ app.engine('handlebars', handlebars({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
