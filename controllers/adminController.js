@@ -133,9 +133,11 @@ const adminController = {
       })
   },
   getUsers: (req, res) => {
-    return User.findAll({ raw: true }).then(users => {
-      return res.render('admin/users', { users: users })
+    return User.findAll({ raw: true })
+    .then(users => {
+         return res.render('admin/users', { users: users })
     })
+    .catch(err => console.log(err))
   },
 
   toggleAdmin: (req, res) => {
