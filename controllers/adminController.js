@@ -10,7 +10,6 @@ const adminController = {
   getRestaurants: (req, res) => {
     return Restaurant.findAll({ raw: true, nest: true, include: [Category] })
       .then(restaurants => {
-        console.log(restaurants)
         return res.render('admin/restaurants', { restaurants: restaurants })
       })
   },
