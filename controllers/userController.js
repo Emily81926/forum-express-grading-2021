@@ -69,10 +69,10 @@ const userController = {
   },
   editUser: (req, res) => {
     //只有使用者可以編輯自己的profile
-     if (String(helpers.getUser(req).id) !== req.params.id) {
-       req.flash('error_messages', '無法編輯其他使用者的資料')
-         res.redirect(`/users/${req.params.id}`)
-      }
+    if (String(helpers.getUser(req).id) !== req.params.id) {
+      req.flash('error_messages', '無法編輯其他使用者的資料')
+      res.redirect(`/users/${req.params.id}`)
+    }
     return User.findByPk(req.params.id)
       .then(user =>
         res.render('edit', {
