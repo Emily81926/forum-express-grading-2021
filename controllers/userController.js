@@ -166,6 +166,22 @@ const userController = {
       .then((retaurant) => {
         return res.redirect('back')
       })
+  },
+  getTopUser: (req, res) => {
+    // 撈出所有 User 與 followers 資料
+    return User.findAll({
+      include: [
+        { model: User, as: 'Followers' }
+      ]
+    }).then(users => {
+      users = users.map(user => ({
+        ...user.dataValues,
+        FollowerCount: user.Followers.length,
+        isFollowed: req.user.Followings.map(d => d.id).includes(user.id)
+      }))
+      users = users.sort((a, b) => b.FollowerCount - a.FollowerCount)
+      return res.render('topUser', { users: users })
+    })
   }
 }
 
