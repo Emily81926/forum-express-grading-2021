@@ -26,6 +26,7 @@ module.exports = (app, passport) => {
   app.get('/', authenticated ,(req, res) => res.redirect('/restaurants'))
   app.get('/restaurants', authenticated, restController.getRestaurants)
   app.get('/restaurants/feeds',authenticated, restController.getFeeds)
+  app.get('/restaurants/top', authenticated, restController.getTopRestaurant)
   app.get('/restaurants/:id/dashboard', authenticated, restController.getDashBoard)
   app.get('/restaurants/:id', authenticated, restController.getRestaurant)
 
@@ -56,7 +57,7 @@ module.exports = (app, passport) => {
   app.post('/comments', authenticated, commentController.postComment)
   app.delete('/comments/:id', authenticatedAdmin, commentController.deleteComment)
 
-  app.post('/favorite/:restaurantId', authenticated, userController.addFavortie)
+  app.post('/favorite/:restaurantId', authenticated, userController.addFavorite)
   app.delete('/favorite/:restaurantId', authenticated, userController.removeFavorite)
 
   app.post('/like/:restaurantId', authenticated, userController.addLike)

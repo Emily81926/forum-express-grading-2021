@@ -50,7 +50,11 @@ git push origin R01           # 上傳本地進度
 * 第二組帳號沒有 admin 權限：
   * email: user1@example.com
 <<<<<<< HEAD
+<<<<<<< HEAD
   * password: 12345678
 =======
   * password: 12345678
 >>>>>>> upstream/R04-test
+=======
+  * password: 12345678
+>>>>>>> upstream/R05-test
