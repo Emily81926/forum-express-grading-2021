@@ -70,6 +70,7 @@ const restController = {
       })
     })
   },
+
   getFeeds: (req, res) => {
     return Promise.all([
       Restaurant.findAll({
@@ -107,6 +108,7 @@ const restController = {
   getTopRestaurant: (req, res) => {
     return Restaurant.findAll({
       limit: 10,
+      order: [['favoriteCounts', 'DESC']],
       include: [
         { model: User, as: 'FavoritedUsers' }
       ]

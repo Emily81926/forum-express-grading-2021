@@ -126,22 +126,26 @@ const userController = {
     }
   },
   addFavorite: (req, res) => {
-    return Favorite.create({
+    Favorite.create({
       UserId: req.user.id,
       RestaurantId: req.params.restaurantId
     })
+    return Restaurant.findByPk(req.params.restaurantId)
       .then(restaurant => {
+        restaurant.increment('favoriteCounts', { by: 1 })
         return res.redirect('back')
       })
   },
   removeFavorite: (req, res) => {
-    return Favorite.destroy({
+    Favorite.destroy({
       where: {
         UserId: req.user.id,
         RestaurantId: req.params.restaurantId
       }
     })
-      .then(() => {
+    return Restaurant.findByPk(req.params.restaurantId)
+      .then(restaurant => {
+        restaurant.decrement('favoriteCounts', { by: 1 })
         return res.redirect('back')
       })
   },
