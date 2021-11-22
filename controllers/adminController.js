@@ -4,14 +4,14 @@ const Restaurant = db.Restaurant
 const User = db.User
 const Category = db.Category
 const imgur = require('imgur-node-api')
+const adminService = require('../services/adminService')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 
 const adminController = {
   getRestaurants: (req, res) => {
-    return Restaurant.findAll({ raw: true, nest: true, include: [Category] })
-      .then(restaurants => {
-        return res.render('admin/restaurants', { restaurants: restaurants })
-      })
+    adminService.getRestaurants(req, res, (data) => {
+      return res.render('admin/restaurants', data)
+    })
   },
   createRestaurant: (req, res) => {
     return res.render('admin/create')
@@ -57,11 +57,11 @@ const adminController = {
   },
   getRestaurant: (req, res) => {
     return Restaurant.findByPk(req.params.id, { include: [Category] })
-    .then(restaurant => {
-      return res.render('admin/restaurant', {
-        restaurant: restaurant.toJSON()
+      .then(restaurant => {
+        return res.render('admin/restaurant', {
+          restaurant: restaurant.toJSON()
+        })
       })
-    })
   },
   editRestaurant: (req, res) => {
     Category.findAll({
@@ -135,10 +135,10 @@ const adminController = {
 
   getUsers: (req, res) => {
     return User.findAll({ raw: true })
-    .then(users => {
-      return res.render('admin/users', { users })
-    })
-    .catch(err => console.log(err))
+      .then(users => {
+        return res.render('admin/users', { users })
+      })
+      .catch(err => console.log(err))
   },
 
   toggleAdmin: (req, res) => {
