@@ -17,6 +17,7 @@ app.engine('handlebars', handlebars({
   helpers: require('./config/handlebars-helpers')}))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(passport.initialize())
 app.use(passport.session())
